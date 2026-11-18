@@ -1,0 +1,22 @@
+name: CrossUI
+main: io.github.natan307.crossui.core.CrossUIPlugin
+version: '${version}'
+api-version: '1.21'
+description: 'Cross-platform UI middleware: Bedrock Forms, Java Native Dialogs and chest GUIs. Wiki - https://github.com/natan307/CrossUI/wiki'
+website: 'https://github.com/natan307/CrossUI/wiki'
+folia-supported: true
+authors: [natan307]
+
+softdepend: [floodgate, Geyser-Spigot, ViaVersion]
+
+commands:
+  crossui:
+    description: CrossUI main command. Wiki - https://github.com/natan307/CrossUI/wiki
+    usage: /<command> <reload|testgui>
+    aliases: [cui]
+    permission: crossui.admin
+
+permissions:
+  crossui.admin:
+    description: Allows use of the /crossui command.
+    default: op

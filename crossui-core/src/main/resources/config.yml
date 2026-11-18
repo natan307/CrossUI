@@ -1,0 +1,90 @@
+# ==============================================================================
+#  CrossUI configuration
+#  Wiki: https://github.com/natan307/CrossUI/wiki
+#
+#  Works on Spigot, Paper, Purpur and Folia (1.21.x up to the newest release).
+#  Run "/crossui reload" after editing this file.
+# ==============================================================================
+
+# Prints extra information about intercepted menus to the console.
+debug: false
+
+bedrock:
+  # Automatically turn classic chest GUIs of other plugins into Bedrock forms.
+  convert-chest-guis: true
+
+  # Menus whose title matches one of these entries are never converted.
+  # Plain entries are a case-insensitive "contains" match.
+  # Prefix an entry with "regex:" to use a regular expression.
+  # Use this for fast animated menus such as crate roulettes.
+  title-blacklist:
+    - "Roulette"
+    - "Spinning"
+    - "Crate Opening"
+
+  # When true, ONLY menus matching title-whitelist are converted.
+  whitelist-mode: false
+  title-whitelist: []
+
+  # Items matching these material names count as decoration when their name is blank.
+  # "*" works as a wildcard.
+  decoration-materials:
+    - "*_stained_glass_pane"
+    - "glass_pane"
+    - "iron_bars"
+    - "chain"
+    - "barrier"
+
+  # Convert items that have no custom name into buttons (using the material name).
+  include-unnamed-items: false
+
+  # Show the first lore line under the button text.
+  show-lore-in-button: true
+  lore-max-length: 40
+
+  # Keep Minecraft color codes in button text (RGB colors are reduced to the nearest basic color).
+  keep-colors: false
+
+  # Try to show the item as the button icon (uses textures/items/<material>.png).
+  icons: false
+
+  # Text shown above the buttons of a converted menu.
+  form-content: ""
+
+  # Lore keywords that mark an item as having two different click actions.
+  # The player is then asked which action to run.
+  dual-click:
+    left-keywords: ["left-click", "left click", "lmb"]
+    right-keywords: ["right-click", "right click", "rmb"]
+
+  # Ticks to wait for the menu to refresh before re-opening the form after a click.
+  refresh-delay-ticks: 4
+
+  # When a menu has no usable buttons, show it normally instead of hiding it.
+  fallback-to-chest-when-empty: true
+
+java:
+  # Use native Java dialogs (Minecraft 1.21.6+) for CrossUI API menus.
+  native-dialogs: true
+
+messages:
+  prefix: "&8[&bCrossUI&8] &7"
+  chat-input-hint: "Type your answer in chat, or type &bcancel&7 to abort."
+  reload-success: "Configuration reloaded."
+  no-permission: "&cYou do not have permission to do that."
+  player-only: "&cThis command can only be used by players."
+  usage: "Usage: /crossui <reload|testgui>"
+  unknown-subcommand: "&cUnknown subcommand. &7Usage: /crossui <reload|testgui>"
+  testgui-title: "CrossUI Test"
+  testgui-content: "Detected client platform: &b%platform%"
+  testgui-input-button: "Test text input"
+  testgui-confirm-button: "Test confirmation"
+  testgui-close-button: "Close"
+  testgui-input-title: "Text Input"
+  testgui-input-label: "Type anything:"
+  testgui-input-placeholder: "Hello CrossUI"
+  testgui-input-result: "You typed: &b%text%"
+  testgui-confirm-title: "Confirmation"
+  testgui-confirm-body: "Do you like CrossUI?"
+  testgui-confirm-yes: "You answered &ayes&7."
+  testgui-confirm-no: "You answered &cno&7."
