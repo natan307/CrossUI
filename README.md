@@ -90,6 +90,8 @@ A classic chest GUI from another plugin (left) is turned into a native Bedrock F
   <img src="https://raw.githubusercontent.com/natan307/CrossUI/refs/heads/main/ChestToForm%20Example.png" alt="A chest GUI converted into a Bedrock Form by CrossUI" width="800">
 </p>
 
+*Example: a chest GUI from my own plugin, ProximityChat, shown to a Bedrock player as a native form.*
+
 ---
 
 ## How it works
