@@ -1,7 +1,7 @@
 /*
  * CrossUI - https://github.com/natan307/CrossUI
  * Copyright (c) 2026 natan307
- * Licensed under the MIT License. See the LICENSE file in the project root.
+ * Licensed under the MIT License. See the LICENSE file in the crossui-api directory.
  */
 package io.github.natan307.crossui.api.builder;
 

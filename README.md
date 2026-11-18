@@ -10,11 +10,11 @@
   <img src="https://img.shields.io/badge/Java-21%2B-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java 21+">
   <img src="https://img.shields.io/badge/Spigot%20%7C%20Paper%20%7C%20Purpur%20%7C%20Folia-supported-blue?style=flat-square" alt="Spigot, Paper, Purpur, Folia">
   <a href="https://github.com/natan307/CrossUI/wiki"><img src="https://img.shields.io/badge/docs-wiki-lightgrey?style=flat-square&logo=gitbook&logoColor=white" alt="Wiki"></a>
-  <a href="https://patreon.com/Natan307"><img src="https://img.shields.io/badge/Patreon-Support%20me-F96854?style=flat-square&logo=patreon&logoColor=white" alt="Support on Patreon"></a>
+  <a href="https://ko-fi.com/natanezra"><img src="https://img.shields.io/badge/Ko--fi-Support%20me-FF5E5B?style=flat-square&logo=ko-fi&logoColor=white" alt="Support on Ko-fi"></a>
 </p>
 
 <p align="center">
-  <a href="https://patreon.com/Natan307"><img src="https://img.shields.io/badge/Become%20a%20patron-Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Become a patron on Patreon"></a>
+  <a href="https://ko-fi.com/natanezra"><img src="https://img.shields.io/badge/Support%20me%20on-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Support me on Ko-fi"></a>
 </p>
 
 **One UI call. Every client.**
@@ -22,8 +22,8 @@ CrossUI is a UI translation middleware and cross-platform API for Minecraft serv
 
 - Wiki: <https://github.com/natan307/CrossUI/wiki>
 - Source: <https://github.com/natan307/CrossUI>
-- License: [GPL 3.0](LICENSE)
-- Support the project: <https://patreon.com/Natan307>
+- License: API [MIT](crossui-api/LICENSE), Core [GPL-3.0](LICENSE)
+- Support the project: <https://ko-fi.com/natanezra>
 
 ---
 
@@ -475,7 +475,7 @@ Issues and pull requests are welcome at <https://github.com/natan307/CrossUI>.
 CrossUI is free and open source. If it saves you time or makes your Bedrock players happier, you can support its development:
 
 <p>
-  <a href="https://patreon.com/Natan307"><img src="https://img.shields.io/badge/Support%20on-Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Support on Patreon"></a>
+  <a href="https://ko-fi.com/natanezra"><img src="https://img.shields.io/badge/Support%20on-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Support on Ko-fi"></a>
 </p>
 
 Starring the repository, reporting bugs and sharing the plugin with other server owners helps just as much.
@@ -484,6 +484,13 @@ Starring the repository, reporting bugs and sharing the plugin with other server
 
 ## License
 
-CrossUI's own source code is released under the [MIT License](LICENSE). Copyright (c) 2026 natan307.
+CrossUI is split into two modules with different licenses:
 
-`CrossUI.jar` bundles [PacketEvents](https://github.com/retrooper/packetevents), which is licensed under the GNU GPL v3. See [LICENSE](LICENSE) and the PacketEvents repository for the terms that apply to the combined jar.
+| Module | License |
+| --- | --- |
+| `crossui-api` (the public API you depend on) | [MIT License](crossui-api/LICENSE) |
+| `crossui-core` (the plugin) | [GNU GPL-3.0](LICENSE) |
+
+The API stays MIT so that any plugin, open source or not, can depend on it freely. `CrossUI.jar` bundles [PacketEvents](https://github.com/retrooper/packetevents), which is licensed under the GNU GPL v3, so the plugin jar as a whole is distributed under the GPL-3.0.
+
+Copyright (c) 2026 natan307.

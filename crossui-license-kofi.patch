@@ -1,0 +1,722 @@
+diff --git a/README.md b/README.md
+index ee6696f..5418efe 100644
+--- a/README.md
++++ b/README.md
+@@ -10,11 +10,11 @@
+   <img src="https://img.shields.io/badge/Java-21%2B-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java 21+">
+   <img src="https://img.shields.io/badge/Spigot%20%7C%20Paper%20%7C%20Purpur%20%7C%20Folia-supported-blue?style=flat-square" alt="Spigot, Paper, Purpur, Folia">
+   <a href="https://github.com/natan307/CrossUI/wiki"><img src="https://img.shields.io/badge/docs-wiki-lightgrey?style=flat-square&logo=gitbook&logoColor=white" alt="Wiki"></a>
+-  <a href="https://patreon.com/Natan307"><img src="https://img.shields.io/badge/Patreon-Support%20me-F96854?style=flat-square&logo=patreon&logoColor=white" alt="Support on Patreon"></a>
++  <a href="https://ko-fi.com/natanezra"><img src="https://img.shields.io/badge/Ko--fi-Support%20me-FF5E5B?style=flat-square&logo=ko-fi&logoColor=white" alt="Support on Ko-fi"></a>
+ </p>
+ 
+ <p align="center">
+-  <a href="https://patreon.com/Natan307"><img src="https://img.shields.io/badge/Become%20a%20patron-Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Become a patron on Patreon"></a>
++  <a href="https://ko-fi.com/natanezra"><img src="https://img.shields.io/badge/Support%20me%20on-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Support me on Ko-fi"></a>
+ </p>
+ 
+ **One UI call. Every client.**
+@@ -22,8 +22,8 @@ CrossUI is a UI translation middleware and cross-platform API for Minecraft serv
+ 
+ - Wiki: <https://github.com/natan307/CrossUI/wiki>
+ - Source: <https://github.com/natan307/CrossUI>
+-- License: [GPL 3.0](LICENSE)
+-- Support the project: <https://patreon.com/Natan307>
++- License: API [MIT](crossui-api/LICENSE), Core [GPL-3.0](LICENSE)
++- Support the project: <https://ko-fi.com/natanezra>
+ 
+ ---
+ 
+@@ -475,7 +475,7 @@ Issues and pull requests are welcome at <https://github.com/natan307/CrossUI>.
+ CrossUI is free and open source. If it saves you time or makes your Bedrock players happier, you can support its development:
+ 
+ <p>
+-  <a href="https://patreon.com/Natan307"><img src="https://img.shields.io/badge/Support%20on-Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Support on Patreon"></a>
++  <a href="https://ko-fi.com/natanezra"><img src="https://img.shields.io/badge/Support%20on-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Support on Ko-fi"></a>
+ </p>
+ 
+ Starring the repository, reporting bugs and sharing the plugin with other server owners helps just as much.
+@@ -484,6 +484,13 @@ Starring the repository, reporting bugs and sharing the plugin with other server
+ 
+ ## License
+ 
+-CrossUI's own source code is released under the [MIT License](LICENSE). Copyright (c) 2026 natan307.
++CrossUI is split into two modules with different licenses:
+ 
+-`CrossUI.jar` bundles [PacketEvents](https://github.com/retrooper/packetevents), which is licensed under the GNU GPL v3. See [LICENSE](LICENSE) and the PacketEvents repository for the terms that apply to the combined jar.
++| Module | License |
++| --- | --- |
++| `crossui-api` (the public API you depend on) | [MIT License](crossui-api/LICENSE) |
++| `crossui-core` (the plugin) | [GNU GPL-3.0](LICENSE) |
++
++The API stays MIT so that any plugin, open source or not, can depend on it freely. `CrossUI.jar` bundles [PacketEvents](https://github.com/retrooper/packetevents), which is licensed under the GNU GPL v3, so the plugin jar as a whole is distributed under the GPL-3.0.
++
++Copyright (c) 2026 natan307.
+diff --git a/crossui-api/LICENSE b/crossui-api/LICENSE
+new file mode 100644
+index 0000000..88bc5ef
+--- /dev/null
++++ b/crossui-api/LICENSE
+@@ -0,0 +1,21 @@
++MIT License
++
++Copyright (c) 2026 natan307
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
+diff --git a/crossui-api/src/main/java/io/github/natan307/crossui/api/CrossUI.java b/crossui-api/src/main/java/io/github/natan307/crossui/api/CrossUI.java
+index ec78512..bce9150 100644
+--- a/crossui-api/src/main/java/io/github/natan307/crossui/api/CrossUI.java
++++ b/crossui-api/src/main/java/io/github/natan307/crossui/api/CrossUI.java
+@@ -1,7 +1,7 @@
+ /*
+  * CrossUI - https://github.com/natan307/CrossUI
+  * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * Licensed under the MIT License. See the LICENSE file in the crossui-api directory.
+  */
+ package io.github.natan307.crossui.api;
+ 
+diff --git a/crossui-api/src/main/java/io/github/natan307/crossui/api/CrossUIProvider.java b/crossui-api/src/main/java/io/github/natan307/crossui/api/CrossUIProvider.java
+index 72adca7..56f29a4 100644
+--- a/crossui-api/src/main/java/io/github/natan307/crossui/api/CrossUIProvider.java
++++ b/crossui-api/src/main/java/io/github/natan307/crossui/api/CrossUIProvider.java
+@@ -1,7 +1,7 @@
+ /*
+  * CrossUI - https://github.com/natan307/CrossUI
+  * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * Licensed under the MIT License. See the LICENSE file in the crossui-api directory.
+  */
+ package io.github.natan307.crossui.api;
+ 
+diff --git a/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/ConfirmBuilder.java b/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/ConfirmBuilder.java
+index cc113ea..d6f004e 100644
+--- a/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/ConfirmBuilder.java
++++ b/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/ConfirmBuilder.java
+@@ -1,7 +1,7 @@
+ /*
+  * CrossUI - https://github.com/natan307/CrossUI
+  * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * Licensed under the MIT License. See the LICENSE file in the crossui-api directory.
+  */
+ package io.github.natan307.crossui.api.builder;
+ 
+diff --git a/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/InputBuilder.java b/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/InputBuilder.java
+index f4f4aef..d84638b 100644
+--- a/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/InputBuilder.java
++++ b/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/InputBuilder.java
+@@ -1,7 +1,7 @@
+ /*
+  * CrossUI - https://github.com/natan307/CrossUI
+  * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * Licensed under the MIT License. See the LICENSE file in the crossui-api directory.
+  */
+ package io.github.natan307.crossui.api.builder;
+ 
+diff --git a/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/MenuBuilder.java b/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/MenuBuilder.java
+index a6c3d5f..536c258 100644
+--- a/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/MenuBuilder.java
++++ b/crossui-api/src/main/java/io/github/natan307/crossui/api/builder/MenuBuilder.java
+@@ -1,7 +1,7 @@
+ /*
+  * CrossUI - https://github.com/natan307/CrossUI
+  * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * Licensed under the MIT License. See the LICENSE file in the crossui-api directory.
+  */
+ package io.github.natan307.crossui.api.builder;
+ 
+diff --git a/crossui-api/src/main/java/io/github/natan307/crossui/api/model/UIButton.java b/crossui-api/src/main/java/io/github/natan307/crossui/api/model/UIButton.java
+index 5b6169f..2adc0eb 100644
+--- a/crossui-api/src/main/java/io/github/natan307/crossui/api/model/UIButton.java
++++ b/crossui-api/src/main/java/io/github/natan307/crossui/api/model/UIButton.java
+@@ -1,7 +1,7 @@
+ /*
+  * CrossUI - https://github.com/natan307/CrossUI
+  * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * Licensed under the MIT License. See the LICENSE file in the crossui-api directory.
+  */
+ package io.github.natan307.crossui.api.model;
+ 
+diff --git a/crossui-api/src/main/java/io/github/natan307/crossui/api/platform/ClientPlatform.java b/crossui-api/src/main/java/io/github/natan307/crossui/api/platform/ClientPlatform.java
+index 855e03c..7214cab 100644
+--- a/crossui-api/src/main/java/io/github/natan307/crossui/api/platform/ClientPlatform.java
++++ b/crossui-api/src/main/java/io/github/natan307/crossui/api/platform/ClientPlatform.java
+@@ -1,7 +1,7 @@
+ /*
+  * CrossUI - https://github.com/natan307/CrossUI
+  * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * Licensed under the MIT License. See the LICENSE file in the crossui-api directory.
+  */
+ package io.github.natan307.crossui.api.platform;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/CrossUIProviderImpl.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/CrossUIProviderImpl.java
+index 1024efb..91367e9 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/CrossUIProviderImpl.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/CrossUIProviderImpl.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/command/CrossUICommand.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/command/CrossUICommand.java
+index 5e34e87..9dd4034 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/command/CrossUICommand.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/command/CrossUICommand.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.command;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/config/BridgeConfig.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/config/BridgeConfig.java
+index 440a275..14b2c57 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/config/BridgeConfig.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/config/BridgeConfig.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.config;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/interceptor/ClickInjector.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/interceptor/ClickInjector.java
+index 574dd44..b2cf211 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/interceptor/ClickInjector.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/interceptor/ClickInjector.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.interceptor;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/interceptor/PacketInterceptor.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/interceptor/PacketInterceptor.java
+index 70a397b..915e756 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/interceptor/PacketInterceptor.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/interceptor/PacketInterceptor.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.interceptor;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/internal/Origin.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/internal/Origin.java
+index f5a8556..0d564f6 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/internal/Origin.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/internal/Origin.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.internal;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/InventoryFilter.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/InventoryFilter.java
+index f1868ba..4e9c470 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/InventoryFilter.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/InventoryFilter.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.parser;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/ParsedButton.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/ParsedButton.java
+index 4b6e988..e09b1fd 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/ParsedButton.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/ParsedButton.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.parser;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/TextSanitizer.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/TextSanitizer.java
+index 2747dc1..3780484 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/TextSanitizer.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/parser/TextSanitizer.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.parser;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/BedrockBridge.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/BedrockBridge.java
+index 275648d..8b3508e 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/BedrockBridge.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/BedrockBridge.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.platform;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/FloodgateAdapter.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/FloodgateAdapter.java
+index fae3624..1a3dff7 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/FloodgateAdapter.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/FloodgateAdapter.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.platform;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/GeyserAdapter.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/GeyserAdapter.java
+index 56c5af6..8e809f9 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/GeyserAdapter.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/GeyserAdapter.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.platform;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/PlatformResolver.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/PlatformResolver.java
+index d15cda5..fbfcc84 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/PlatformResolver.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/platform/PlatformResolver.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.platform;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/BedrockFormRenderer.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/BedrockFormRenderer.java
+index 7d4a036..51a42e4 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/BedrockFormRenderer.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/BedrockFormRenderer.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.renderer;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/ChatInputService.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/ChatInputService.java
+index 30ed0c9..b11ef04 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/ChatInputService.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/ChatInputService.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.renderer;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/JavaDialogRenderer.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/JavaDialogRenderer.java
+index 89ce19f..09276da 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/JavaDialogRenderer.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/JavaDialogRenderer.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.renderer;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/LegacyChestRenderer.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/LegacyChestRenderer.java
+index 14ca8f7..ac20bfe 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/LegacyChestRenderer.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/LegacyChestRenderer.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.renderer;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/session/SessionManager.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/session/SessionManager.java
+index a762816..1eec3aa 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/session/SessionManager.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/session/SessionManager.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.session;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/session/UISession.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/session/UISession.java
+index 9af9ae9..c29853f 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/session/UISession.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/session/UISession.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.session;
+ 
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/util/PlatformScheduler.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/util/PlatformScheduler.java
+index 8f40194..0090752 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/util/PlatformScheduler.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/util/PlatformScheduler.java
+@@ -1,7 +1,19 @@
+ /*
+- * CrossUI - https://github.com/natan307/CrossUI
+- * Copyright (c) 2026 natan307
+- * Licensed under the MIT License. See the LICENSE file in the project root.
++ * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
++ * Copyright (C) 2026  natan307
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ package io.github.natan307.crossui.core.util;
+ 
+diff --git a/wiki/_Sidebar.md b/wiki/_Sidebar.md
+index 1eea444..4588a82 100644
+--- a/wiki/_Sidebar.md
++++ b/wiki/_Sidebar.md
+@@ -6,4 +6,4 @@
+ - [Developer API](Developer-API)
+ 
+ [Source code](https://github.com/natan307/CrossUI)
+-[Support on Patreon](https://patreon.com/Natan307)
++[Support on Ko-fi](https://ko-fi.com/natanezra)
