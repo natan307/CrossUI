@@ -22,7 +22,7 @@ CrossUI is a UI translation middleware and cross-platform API for Minecraft serv
 
 - Wiki: <https://github.com/natan307/CrossUI/wiki>
 - Source: <https://github.com/natan307/CrossUI>
-- License: [MIT](LICENSE)
+- License: [GPL 3.0](LICENSE)
 - Support the project: <https://patreon.com/Natan307>
 
 ---
