@@ -4,8 +4,8 @@
   <img src="https://img.shields.io/badge/CrossUI-Bedrock%20%7C%20Java%20Dialog%20%7C%20Chest%20GUI-5865F2?style=for-the-badge" alt="CrossUI">
 </p>
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square" alt="MIT License"></a>
+![API License](https://img.shields.io/badge/API_License-MIT-green)
+![Core License](https://img.shields.io/badge/Core_License-GPL--3.0-blue)
   <img src="https://img.shields.io/badge/Minecraft-1.21.x%20--%2026.3-62B47A?style=flat-square&logo=minecraft&logoColor=white" alt="Minecraft 1.21.x - 26.3">
   <img src="https://img.shields.io/badge/Java-21%2B-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java 21+">
   <img src="https://img.shields.io/badge/Spigot%20%7C%20Paper%20%7C%20Purpur%20%7C%20Folia-supported-blue?style=flat-square" alt="Spigot, Paper, Purpur, Folia">
