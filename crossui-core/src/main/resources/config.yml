@@ -36,7 +36,7 @@ bedrock:
     - "barrier"
 
   # Convert items that have no custom name into buttons (using the material name).
-  include-unnamed-items: false
+  include-unnamed-items: true
 
   # Show the first lore line under the button text.
   show-lore-in-button: true
@@ -44,16 +44,6 @@ bedrock:
 
   # Keep Minecraft color codes in button text (RGB colors are reduced to the nearest basic color).
   keep-colors: false
-
-  # Show the item as the button image, so every converted menu keeps its item pictures.
-  icons: true
-
-  # Where the button images come from.
-  # Empty: the vanilla Bedrock texture of the item is used (textures/blocks/.. or textures/items/..).
-  #        It works offline, but a few materials have no matching Bedrock texture.
-  # URL:   the client downloads one PNG per item. Use %material% for the item name, for example
-  #        "https://your-host.example/icons/%material%.png" (lowercase Java names like soul_sand).
-  icon-url-template: ""
 
   # Text shown above the buttons of a converted menu.
   form-content: ""

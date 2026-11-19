@@ -37,8 +37,6 @@ public final class BridgeConfig {
     private volatile boolean whitelistMode;
     private volatile boolean includeUnnamed;
     private volatile boolean showLoreInButton;
-    private volatile boolean icons;
-    private volatile String iconUrlTemplate;
     private volatile boolean keepColors;
     private volatile boolean nativeDialogs;
     private volatile boolean fallbackWhenEmpty;
@@ -71,12 +69,10 @@ public final class BridgeConfig {
         this.whitelistMode = b.getBoolean("whitelist-mode", false);
         this.titleWhitelist = b.getStringList("title-whitelist");
         this.decorationMaterials = lower(b.getStringList("decoration-materials"));
-        this.includeUnnamed = b.getBoolean("include-unnamed-items", false);
+        this.includeUnnamed = b.getBoolean("include-unnamed-items", true);
         this.showLoreInButton = b.getBoolean("show-lore-in-button", true);
         this.loreMaxLength = Math.max(8, b.getInt("lore-max-length", 40));
         this.keepColors = b.getBoolean("keep-colors", false);
-        this.icons = b.getBoolean("icons", true);
-        this.iconUrlTemplate = b.getString("icon-url-template", "");
         this.formContent = b.getString("form-content", "");
         this.leftKeywords = lower(b.getStringList("dual-click.left-keywords"));
         this.rightKeywords = lower(b.getStringList("dual-click.right-keywords"));
@@ -144,15 +140,6 @@ public final class BridgeConfig {
 
     public boolean showLoreInButton() {
         return showLoreInButton;
-    }
-
-    /** Image URL template with a {@code %material%} placeholder, or empty to use Bedrock texture paths. */
-    public String iconUrlTemplate() {
-        return iconUrlTemplate;
-    }
-
-    public boolean icons() {
-        return icons;
     }
 
     public boolean keepColors() {

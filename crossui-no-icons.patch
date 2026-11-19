@@ -1,0 +1,168 @@
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/config/BridgeConfig.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/config/BridgeConfig.java
+index 8ca8234..d6dffe4 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/config/BridgeConfig.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/config/BridgeConfig.java
+@@ -37,8 +37,6 @@ public final class BridgeConfig {
+     private volatile boolean whitelistMode;
+     private volatile boolean includeUnnamed;
+     private volatile boolean showLoreInButton;
+-    private volatile boolean icons;
+-    private volatile String iconUrlTemplate;
+     private volatile boolean keepColors;
+     private volatile boolean nativeDialogs;
+     private volatile boolean fallbackWhenEmpty;
+@@ -71,12 +69,10 @@ public final class BridgeConfig {
+         this.whitelistMode = b.getBoolean("whitelist-mode", false);
+         this.titleWhitelist = b.getStringList("title-whitelist");
+         this.decorationMaterials = lower(b.getStringList("decoration-materials"));
+-        this.includeUnnamed = b.getBoolean("include-unnamed-items", false);
++        this.includeUnnamed = b.getBoolean("include-unnamed-items", true);
+         this.showLoreInButton = b.getBoolean("show-lore-in-button", true);
+         this.loreMaxLength = Math.max(8, b.getInt("lore-max-length", 40));
+         this.keepColors = b.getBoolean("keep-colors", false);
+-        this.icons = b.getBoolean("icons", true);
+-        this.iconUrlTemplate = b.getString("icon-url-template", "");
+         this.formContent = b.getString("form-content", "");
+         this.leftKeywords = lower(b.getStringList("dual-click.left-keywords"));
+         this.rightKeywords = lower(b.getStringList("dual-click.right-keywords"));
+@@ -146,15 +142,6 @@ public final class BridgeConfig {
+         return showLoreInButton;
+     }
+ 
+-    /** Image URL template with a {@code %material%} placeholder, or empty to use Bedrock texture paths. */
+-    public String iconUrlTemplate() {
+-        return iconUrlTemplate;
+-    }
+-
+-    public boolean icons() {
+-        return icons;
+-    }
+-
+     public boolean keepColors() {
+         return keepColors;
+     }
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/BedrockFormRenderer.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/BedrockFormRenderer.java
+index eecbbbe..37860a3 100644
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/BedrockFormRenderer.java
++++ b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/BedrockFormRenderer.java
+@@ -60,12 +60,7 @@ public final class BedrockFormRenderer {
+             if (config.showLoreInButton() && button.subtext() != null) {
+                 text += "\n" + TextSanitizer.truncate(button.subtext(), config.loreMaxLength());
+             }
+-            if (config.icons()) {
+-                IconResolver.Icon icon = IconResolver.resolve(button.materialKey(), config.iconUrlTemplate());
+-                form.button(text, icon.type(), icon.value());
+-            } else {
+-                form.button(text);
+-            }
++            form.button(text);
+         }
+ 
+         form.validResultHandler(response -> onSelect.accept(response.clickedButtonId()));
+diff --git a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/IconResolver.java b/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/IconResolver.java
+deleted file mode 100644
+index 2b9ee0b..0000000
+--- a/crossui-core/src/main/java/io/github/natan307/crossui/core/renderer/IconResolver.java
++++ /dev/null
+@@ -1,71 +0,0 @@
+-/*
+- * CrossUI - Cross-platform UI bridge between Java Chest GUIs, Native Dialogs, and Bedrock Forms.
+- * Copyright (C) 2026  natan307
+- *
+- * This program is free software: you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation, either version 3 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+- */
+-package io.github.natan307.crossui.core.renderer;
+-
+-import org.bukkit.Material;
+-import org.geysermc.cumulus.util.FormImage;
+-
+-import java.util.Locale;
+-
+-/**
+- * Picks the Bedrock button image for an item material.
+- *
+- * <p>With a URL template (config {@code icon-url-template}) the image is downloaded by the client.
+- * Without one, the vanilla Bedrock texture path is used ({@code textures/blocks/..} or
+- * {@code textures/items/..}), which needs no internet access but does not exist for every material.</p>
+- */
+-public final class IconResolver {
+-
+-    /** A resolved image: its type and its value. */
+-    public record Icon(FormImage.Type type, String value) { }
+-
+-    private IconResolver() {
+-    }
+-
+-    public static Icon resolve(String materialKey, String urlTemplate) {
+-        String key = materialKey.toLowerCase(Locale.ROOT);
+-        if (urlTemplate != null && !urlTemplate.isBlank()) {
+-            return new Icon(FormImage.Type.URL, urlTemplate.replace("%material%", key));
+-        }
+-
+-        Material material = Material.matchMaterial(key);
+-        boolean block = material != null && material.isBlock();
+-        String folder = block ? "textures/blocks/" : "textures/items/";
+-        return new Icon(FormImage.Type.PATH, folder + bedrockName(key, block));
+-    }
+-
+-    /** Maps the most common Java names that differ from the Bedrock texture names. */
+-    private static String bedrockName(String key, boolean block) {
+-        if (!block) {
+-            return key;
+-        }
+-        if (key.equals("grass_block")) {
+-            return "grass_side_carried";
+-        }
+-        if (key.endsWith("_planks")) {
+-            return "planks_" + key.substring(0, key.length() - "_planks".length());
+-        }
+-        if (key.endsWith("_log")) {
+-            return "log_" + key.substring(0, key.length() - "_log".length());
+-        }
+-        if (key.endsWith("_wool")) {
+-            return "wool_colored_" + key.substring(0, key.length() - "_wool".length());
+-        }
+-        return key;
+-    }
+-}
+diff --git a/crossui-core/src/main/resources/config.yml b/crossui-core/src/main/resources/config.yml
+index 19f35c6..706a304 100644
+--- a/crossui-core/src/main/resources/config.yml
++++ b/crossui-core/src/main/resources/config.yml
+@@ -36,7 +36,7 @@ bedrock:
+     - "barrier"
+ 
+   # Convert items that have no custom name into buttons (using the material name).
+-  include-unnamed-items: false
++  include-unnamed-items: true
+ 
+   # Show the first lore line under the button text.
+   show-lore-in-button: true
+@@ -45,16 +45,6 @@ bedrock:
+   # Keep Minecraft color codes in button text (RGB colors are reduced to the nearest basic color).
+   keep-colors: false
+ 
+-  # Show the item as the button image, so every converted menu keeps its item pictures.
+-  icons: true
+-
+-  # Where the button images come from.
+-  # Empty: the vanilla Bedrock texture of the item is used (textures/blocks/.. or textures/items/..).
+-  #        It works offline, but a few materials have no matching Bedrock texture.
+-  # URL:   the client downloads one PNG per item. Use %material% for the item name, for example
+-  #        "https://your-host.example/icons/%material%.png" (lowercase Java names like soul_sand).
+-  icon-url-template: ""
+-
+   # Text shown above the buttons of a converted menu.
+   form-content: ""
+ 
