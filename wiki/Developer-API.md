@@ -37,6 +37,27 @@ CrossUI.input(player)
 
 All callbacks run on the thread that owns the player (the main thread on Spigot/Paper, the player's region thread on Folia). Java native dialogs cannot report a plain "closed" event, so `onClose` / `onCancel` are only called where the platform supports it.
 
+## What each builder shows
+
+| Builder | Bedrock | Java 1.21.6+ | Older Java |
+| --- | --- | --- | --- |
+| `menu` | SimpleForm | Native multi-action dialog | Chest inventory |
+| `input` | CustomForm with an input field | Native dialog with a text field and Submit / Cancel | Next chat message is the answer (`cancel` aborts) |
+| `confirm` | ModalForm | Native confirmation dialog | Chest with Yes / No wool |
+
+Detect the client with `CrossUI.platform(player)`, which returns `BEDROCK`, `JAVA_DIALOG` or `JAVA_LEGACY`. Text in all builders accepts `&` color codes.
+
+## Button icons
+
+A menu button can have an optional icon: `url:https://...` and `path:textures/...` are used by Bedrock forms. The legacy chest renderer reads a Bukkit material name, for example `"DIAMOND_SWORD"`.
+
+```java
+CrossUI.menu(player)
+    .title("Warps")
+    .button("Arena", "PvP", "url:https://example.com/arena.png", p -> p.performCommand("arena"))
+    .open();
+```
+
 ## ServicesManager
 
 ```java

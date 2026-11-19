@@ -4,26 +4,29 @@
   <img src="https://img.shields.io/badge/CrossUI-Bedrock%20%7C%20Java%20Dialog%20%7C%20Chest%20GUI-5865F2?style=for-the-badge" alt="CrossUI">
 </p>
 
-![API License](https://img.shields.io/badge/API_License-MIT-green)
-![Core License](https://img.shields.io/badge/Core_License-GPL--3.0-blue)
+<p align="center">
+  <img src="https://img.shields.io/badge/API-MIT-green?style=flat-square" alt="API license: MIT">
+  <img src="https://img.shields.io/badge/Core-GPL--3.0-blue?style=flat-square" alt="Core license: GPL-3.0">
   <img src="https://img.shields.io/badge/Minecraft-1.21.x%20--%2026.3-62B47A?style=flat-square&logo=minecraft&logoColor=white" alt="Minecraft 1.21.x - 26.3">
   <img src="https://img.shields.io/badge/Java-21%2B-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java 21+">
   <img src="https://img.shields.io/badge/Spigot%20%7C%20Paper%20%7C%20Purpur%20%7C%20Folia-supported-blue?style=flat-square" alt="Spigot, Paper, Purpur, Folia">
-  <a href="https://github.com/natan307/CrossUI/wiki"><img src="https://img.shields.io/badge/docs-wiki-lightgrey?style=flat-square&logo=gitbook&logoColor=white" alt="Wiki"></a>
-  <a href="https://ko-fi.com/natanezra"><img src="https://img.shields.io/badge/Ko--fi-Support%20me-FF5E5B?style=flat-square&logo=ko-fi&logoColor=white" alt="Support on Ko-fi"></a>
 </p>
 
 <p align="center">
+  <a href="https://github.com/natan307/CrossUI/wiki"><img src="https://img.shields.io/badge/Wiki-Read%20the%20docs-5865F2?style=for-the-badge&logo=gitbook&logoColor=white" alt="Wiki"></a>
   <a href="https://ko-fi.com/natanezra"><img src="https://img.shields.io/badge/Support%20me%20on-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Support me on Ko-fi"></a>
 </p>
 
 **One UI call. Every client.**
+
 CrossUI is a UI translation middleware and cross-platform API for Minecraft servers. It unifies the three UI systems that exist on modern servers (Bedrock Forms, Java native Dialogs and classic chest GUIs) so that admins get a better experience for Bedrock players with zero configuration, and plugin developers write their UI code once.
 
 - Wiki: <https://github.com/natan307/CrossUI/wiki>
 - Source: <https://github.com/natan307/CrossUI>
 - License: API [MIT](crossui-api/LICENSE), Core [GPL-3.0](LICENSE)
 - Support the project: <https://ko-fi.com/natanezra>
+
+CrossUI is split into two parts: a lightweight, MIT licensed API for plugin developers, and the GPL-3.0 plugin itself.
 
 ---
 
@@ -59,6 +62,7 @@ CrossUI works in two modes at the same time.
 Drop `CrossUI.jar` into `plugins/` and it works with zero configuration. No other plugin is needed: PacketEvents is bundled inside the jar. CrossUI sits on the network layer between your server and the client.
 
 - **Chest GUI to Bedrock Form.** Inventory menus opened by other plugins (shops, warps, auction houses, crates, ...) are held back for Bedrock players and shown as native Bedrock Forms instead. Pressing a button sends a real click back to the plugin that owns the menu.
+- **Readable item names.** Items whose name is a translation key (for example `block.minecraft.grass_block`) are shown as "Grass Block" instead of the raw key.
 - **Smart filtering.** Empty slots and decorative frame items (glass panes, iron bars, items with a blank name) are removed so only real buttons remain.
 - **Dual-click detection.** If an item advertises both a left-click and a right-click action in its lore, the player is asked which one to run.
 - **Menu blacklist.** Skip fast animated menus such as crate roulettes by title (plain text or regex).
@@ -80,11 +84,10 @@ CrossUI.input(player)
 The same code produces a Java native Dialog, a Bedrock CustomForm, a chat prompt or a chest GUI, depending on who is looking at it.
 
 ---
----
 
 ## Example
 
-A classic chest GUI from another plugin (left) is turned into a native Bedrock Form (right) automatically. Decorative slots are removed, every named item becomes a button, and the first lore line is shown as the button subtext.
+A classic chest GUI from another plugin is turned into a native Bedrock Form automatically. Decorative slots are removed, every named item becomes a button, and the first lore line is shown as the button subtext.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/natan307/CrossUI/refs/heads/main/ChestToForm%20Example.png" alt="A chest GUI converted into a Bedrock Form by CrossUI" width="800">
@@ -189,11 +192,10 @@ File: `plugins/CrossUI/config.yml`. Run `/crossui reload` after editing.
 | `bedrock.whitelist-mode` | `false` | Convert only menus that match `title-whitelist` |
 | `bedrock.title-whitelist` | `[]` | Titles to convert when whitelist mode is on |
 | `bedrock.decoration-materials` | glass panes, iron bars, chain, barrier | Items of these materials with a blank name count as decoration. `*` is a wildcard |
-| `bedrock.include-unnamed-items` | `false` | Turn items without a custom name into buttons (uses the material name) |
+| `bedrock.include-unnamed-items` | `true` | Turn items without a custom name into buttons (uses the material name) |
 | `bedrock.show-lore-in-button` | `true` | Show the first lore line under the button text |
 | `bedrock.lore-max-length` | `40` | Maximum length of that lore line |
 | `bedrock.keep-colors` | `false` | Keep color codes in button text (RGB is reduced to the nearest basic color) |
-| `bedrock.icons` | `false` | Use `textures/items/<material>.png` as the button icon |
 | `bedrock.form-content` | `""` | Text shown above the buttons |
 | `bedrock.dual-click.left-keywords` / `right-keywords` | `left-click` / `right-click` ... | Lore keywords that mark two different click actions |
 | `bedrock.refresh-delay-ticks` | `4` | Delay before the form is rebuilt after a click |
@@ -412,10 +414,11 @@ CrossUI/
 ├── settings.gradle.kts
 ├── build.gradle.kts
 ├── jitpack.yml
-├── LICENSE
+├── LICENSE                            # GPL-3.0 (core)
 ├── wiki/                              # Wiki pages
 │
-├── crossui-api/                       # Lightweight public API (published to Maven/JitPack)
+├── crossui-api/                       # Lightweight public API (MIT, published to Maven/JitPack)
+│   ├── LICENSE                        # MIT
 │   └── io.github.natan307.crossui.api
 │       ├── CrossUI                    # Static facade
 │       ├── CrossUIProvider            # Service contract (ServicesManager)
@@ -445,7 +448,8 @@ CrossUI/
 | --- | --- |
 | Bedrock players still see chest menus | Check the startup log for `Bedrock bridge: none`. Install Floodgate or Geyser-Spigot. Make sure `bedrock.convert-chest-guis` is `true` and the menu title is not blacklisted |
 | A converted menu flickers or reopens constantly | Add its title to `bedrock.title-blacklist` |
-| A menu appears empty for Bedrock | It has no named items. Enable `bedrock.include-unnamed-items` or leave `fallback-to-chest-when-empty` on |
+| Items are missing from a converted menu | Make sure `bedrock.include-unnamed-items` is `true` (the default). Existing servers keep their old `config.yml`, so set it by hand or delete the file to regenerate it, then run `/crossui reload` |
+| Button text shows a raw key such as `block.minecraft.stone` | Update to 1.1.0 or newer, which turns translation keys into readable names |
 | Java players do not see native dialogs | The server must be 1.21.6+ and the client 1.21.6+. Check `java.native-dialogs` |
 | Your plugin throws `NoClassDefFoundError` without CrossUI | Use the [bridge isolation pattern](#5-soft-depend-safely-no-noclassdeffounderror) |
 | Need more detail | Set `debug: true` and run `/crossui reload` |
