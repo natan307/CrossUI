@@ -4,7 +4,7 @@
 
 ```kotlin
 repositories { maven("https://jitpack.io") }
-dependencies { compileOnly("com.github.natan307.CrossUI:crossui-api:1.1.0") }
+dependencies { compileOnly("com.github.natan307:CrossUI:1.1.0") }
 ```
 
 Modrinth Maven alternative: `maven("https://api.modrinth.com/maven")` and `compileOnly("maven.modrinth:crossui:1.1.0")`.
