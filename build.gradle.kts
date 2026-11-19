@@ -1,6 +1,6 @@
 allprojects {
     group = "io.github.natan307.crossui"
-    version = "1.0.0"
+    version = "1.1.0"
 
     repositories {
         mavenCentral()

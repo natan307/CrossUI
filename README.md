@@ -217,7 +217,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.github.natan307.CrossUI:crossui-api:1.0.0")
+    compileOnly("com.github.natan307.CrossUI:crossui-api:1.1.0")
 }
 ```
 
@@ -229,7 +229,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("maven.modrinth:crossui:1.0.0")
+    compileOnly("maven.modrinth:crossui:1.1.0")
 }
 ```
 

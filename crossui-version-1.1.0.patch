@@ -1,0 +1,51 @@
+diff --git a/README.md b/README.md
+index bfd030d..1936f17 100644
+--- a/README.md
++++ b/README.md
+@@ -217,7 +217,7 @@ repositories {
+ }
+ 
+ dependencies {
+-    compileOnly("com.github.natan307.CrossUI:crossui-api:1.0.0")
++    compileOnly("com.github.natan307.CrossUI:crossui-api:1.1.0")
+ }
+ ```
+ 
+@@ -229,7 +229,7 @@ repositories {
+ }
+ 
+ dependencies {
+-    compileOnly("maven.modrinth:crossui:1.0.0")
++    compileOnly("maven.modrinth:crossui:1.1.0")
+ }
+ ```
+ 
+diff --git a/build.gradle.kts b/build.gradle.kts
+index eff36df..7d40323 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -1,6 +1,6 @@
+ allprojects {
+     group = "io.github.natan307.crossui"
+-    version = "1.0.0"
++    version = "1.1.0"
+ 
+     repositories {
+         mavenCentral()
+diff --git a/wiki/Developer-API.md b/wiki/Developer-API.md
+index 153fde2..ee32555 100644
+--- a/wiki/Developer-API.md
++++ b/wiki/Developer-API.md
+@@ -4,10 +4,10 @@
+ 
+ ```kotlin
+ repositories { maven("https://jitpack.io") }
+-dependencies { compileOnly("com.github.natan307.CrossUI:crossui-api:1.0.0") }
++dependencies { compileOnly("com.github.natan307.CrossUI:crossui-api:1.1.0") }
+ ```
+ 
+-Modrinth Maven alternative: `maven("https://api.modrinth.com/maven")` and `compileOnly("maven.modrinth:crossui:1.0.0")`.
++Modrinth Maven alternative: `maven("https://api.modrinth.com/maven")` and `compileOnly("maven.modrinth:crossui:1.1.0")`.
+ 
+ Declare `depend: [CrossUI]` (hard) or `softdepend: [CrossUI]` (optional) in your `plugin.yml`.
+ 
