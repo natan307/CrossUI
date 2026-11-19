@@ -217,7 +217,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.github.natan307.CrossUI:1.1.0")
+    compileOnly("com.github.natan307:CrossUI:1.1.0")
 }
 ```
 
