@@ -229,7 +229,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("maven.modrinth:crossui:1.1.0")
+    compileOnly("maven.modrinth:crossui:1.0.0")
 }
 ```
 
