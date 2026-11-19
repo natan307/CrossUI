@@ -45,8 +45,15 @@ bedrock:
   # Keep Minecraft color codes in button text (RGB colors are reduced to the nearest basic color).
   keep-colors: false
 
-  # Try to show the item as the button icon (uses textures/items/<material>.png).
-  icons: false
+  # Show the item as the button image, so every converted menu keeps its item pictures.
+  icons: true
+
+  # Where the button images come from.
+  # Empty: the vanilla Bedrock texture of the item is used (textures/blocks/.. or textures/items/..).
+  #        It works offline, but a few materials have no matching Bedrock texture.
+  # URL:   the client downloads one PNG per item. Use %material% for the item name, for example
+  #        "https://your-host.example/icons/%material%.png" (lowercase Java names like soul_sand).
+  icon-url-template: ""
 
   # Text shown above the buttons of a converted menu.
   form-content: ""

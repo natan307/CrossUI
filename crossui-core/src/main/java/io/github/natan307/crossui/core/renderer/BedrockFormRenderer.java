@@ -61,7 +61,8 @@ public final class BedrockFormRenderer {
                 text += "\n" + TextSanitizer.truncate(button.subtext(), config.loreMaxLength());
             }
             if (config.icons()) {
-                form.button(text, FormImage.Type.PATH, "textures/items/" + button.materialKey() + ".png");
+                IconResolver.Icon icon = IconResolver.resolve(button.materialKey(), config.iconUrlTemplate());
+                form.button(text, icon.type(), icon.value());
             } else {
                 form.button(text);
             }

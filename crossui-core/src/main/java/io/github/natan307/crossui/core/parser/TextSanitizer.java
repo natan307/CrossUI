@@ -112,7 +112,7 @@ public final class TextSanitizer {
         if (component instanceof TextComponent t) {
             text = t.content();
         } else if (component instanceof TranslatableComponent tr) {
-            text = tr.fallback() != null ? tr.fallback() : tr.key();
+            text = tr.fallback() != null ? tr.fallback() : readableKey(tr.key());
         }
 
         if (text != null && !text.isEmpty()) {
@@ -138,6 +138,25 @@ public final class TextSanitizer {
         for (Component child : component.children()) {
             render(child, style, colors, sb);
         }
+    }
+
+    /**
+     * Turns a translation key such as {@code block.minecraft.soul_sand} into {@code Soul Sand}.
+     * The client language file is not available on the server, so the key itself is prettified.
+     */
+    static String readableKey(String key) {
+        String last = key.substring(key.lastIndexOf('.') + 1);
+        StringBuilder sb = new StringBuilder();
+        for (String part : last.split("_")) {
+            if (part.isEmpty()) {
+                continue;
+            }
+            if (!sb.isEmpty()) {
+                sb.append(' ');
+            }
+            sb.append(Character.toUpperCase(part.charAt(0))).append(part.substring(1));
+        }
+        return sb.isEmpty() ? key : sb.toString();
     }
 
     // ------------------------------------------------------------ legacy strings
