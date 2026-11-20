@@ -38,6 +38,41 @@ bedrock:
   # Convert items that have no custom name into buttons (using the material name).
   include-unnamed-items: true
 
+  # Show the item picture next to every button of a converted menu.
+  # The pictures are the vanilla textures of the player's own Bedrock client, so nothing is
+  # downloaded or sent. Items without a known texture simply get no picture.
+  icons: true
+
+  # Optional: load the pictures from your own web host instead of the Bedrock client.
+  # %material% is the Java item id in lowercase, for example soul_sand.
+  # Example: "https://your-host.example/icons/%material%.png"
+  icon-url-template: ""
+
+  # Rendered pictures (3D blocks, shaped blocks, flat items) with transparent background and a
+  # margin, loaded from this web folder. Bedrock cannot show 3D inventory icons by itself.
+  # The folder must be reachable by the players. Set to "" to use the plain textures of the
+  # Bedrock client instead.
+  icon-pack-url: "https://raw.githubusercontent.com/natan307/CrossUI/main/icons/"
+  # Faster alternative with a CDN (after the icons are on GitHub):
+  # icon-pack-url: "https://cdn.jsdelivr.net/gh/natan307/CrossUI@main/icons/"
+
+  # Player heads show their own skin. %value% is the skin texture hash of the head (or the
+  # owner's UUID). The service must return a picture of the head. Set to "" to turn this off
+  # and use the plain player head picture.
+  head-url-template: "https://mc-heads.net/head/%value%"
+
+  # Optional: set the picture of single items. A value is a Bedrock texture path or a full URL.
+  # Example:
+  #   icon-overrides:
+  #     diamond_sword: "textures/items/diamond_sword"
+  #     my_custom_item: "https://your-host.example/icons/custom.png"
+  icon-overrides: {}
+
+  # Items that get no picture. "*_slab" matches every id that ends with _slab.
+  # Empty by default: slabs, stairs and fences show the texture of their full block.
+  # Example: ["*_slab", "*_stairs"]
+  icon-exclude: []
+
   # Show the first lore line under the button text.
   show-lore-in-button: true
   lore-max-length: 40

@@ -23,6 +23,8 @@ import io.github.natan307.crossui.api.CrossUIProvider;
 import io.github.natan307.crossui.api.platform.ClientPlatform;
 import io.github.natan307.crossui.core.command.CrossUICommand;
 import io.github.natan307.crossui.core.config.BridgeConfig;
+import io.github.natan307.crossui.core.icon.IconRegistry;
+import io.github.natan307.crossui.core.icon.IconResolver;
 import io.github.natan307.crossui.core.internal.Origin;
 import io.github.natan307.crossui.core.interceptor.ClickInjector;
 import io.github.natan307.crossui.core.interceptor.PacketInterceptor;
@@ -74,6 +76,7 @@ public final class CrossUIPlugin extends JavaPlugin implements Listener {
     private LegacyChestRenderer legacyRenderer;
     private ChatInputService chatInput;
     private PacketInterceptor interceptor;
+    private IconResolver icons;
     private CrossUIProviderImpl service;
     private ScheduledExecutorService executor;
     private volatile BedrockBridge bridge;
@@ -97,6 +100,12 @@ public final class CrossUIPlugin extends JavaPlugin implements Listener {
         this.scheduler = new PlatformScheduler(this);
         this.config = new BridgeConfig(this);
         this.config.load();
+
+        IconRegistry iconRegistry = IconRegistry.load(this);
+        this.icons = new IconResolver(iconRegistry, config);
+        if (config.debug()) {
+            getLogger().info("Loaded " + iconRegistry.size() + " Bedrock button icons");
+        }
 
         this.text = new TextSanitizer();
         this.filter = new InventoryFilter(config, text);
@@ -235,6 +244,10 @@ public final class CrossUIPlugin extends JavaPlugin implements Listener {
 
     public InventoryFilter filter() {
         return filter;
+    }
+
+    public IconResolver icons() {
+        return icons;
     }
 
     public ClickInjector injector() {

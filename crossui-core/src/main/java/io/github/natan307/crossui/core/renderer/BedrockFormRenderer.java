@@ -23,6 +23,7 @@ import io.github.natan307.crossui.api.builder.MenuBuilder;
 import io.github.natan307.crossui.api.model.UIButton;
 import io.github.natan307.crossui.core.CrossUIPlugin;
 import io.github.natan307.crossui.core.config.BridgeConfig;
+import io.github.natan307.crossui.core.icon.BedrockIcon;
 import io.github.natan307.crossui.core.parser.ParsedButton;
 import io.github.natan307.crossui.core.parser.TextSanitizer;
 import io.github.natan307.crossui.core.session.UISession;
@@ -60,7 +61,12 @@ public final class BedrockFormRenderer {
             if (config.showLoreInButton() && button.subtext() != null) {
                 text += "\n" + TextSanitizer.truncate(button.subtext(), config.loreMaxLength());
             }
-            form.button(text);
+            BedrockIcon icon = config.icons() ? plugin.icons().resolve(button.materialKey(), button.headValue()) : null;
+            if (icon != null) {
+                form.button(text, icon.type(), icon.value());
+            } else {
+                form.button(text);
+            }
         }
 
         form.validResultHandler(response -> onSelect.accept(response.clickedButtonId()));

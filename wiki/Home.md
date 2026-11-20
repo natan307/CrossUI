@@ -9,7 +9,7 @@ CrossUI is a UI translation middleware and cross-platform API for Minecraft serv
 ## Pages
 
 - [Installation](Installation): requirements, setup and commands
-- [Configuration](Configuration): every `config.yml` option
+- [Configuration](Configuration): every `config.yml` option and the item picture pack
 - [Developer API](Developer-API): builders, ServicesManager and safe soft-depend
 - [Troubleshooting](Troubleshooting): common problems and fixes
 

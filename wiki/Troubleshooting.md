@@ -4,6 +4,8 @@
 | --- | --- |
 | Bedrock players still see chest menus | Check the startup log for `Bedrock bridge: none`. Install Floodgate or Geyser-Spigot. Make sure `bedrock.convert-chest-guis` is `true` and the menu title is not in `title-blacklist`. |
 | A converted menu flickers or reopens constantly | Add its title to `bedrock.title-blacklist`. |
+| Buttons have no picture, or the pictures load slowly | The pictures are loaded from `bedrock.icon-pack-url`. Check that the `icons/` folder is reachable, for example open `https://raw.githubusercontent.com/natan307/CrossUI/main/icons/oak_slab.png` in a browser. Try the jsDelivr address from the [Configuration](Configuration) page, or set `bedrock.icon-pack-url: ""` for instant plain textures. An existing `config.yml` is not updated, so delete it or add the new keys by hand. |
+| A player head shows no skin | Check `bedrock.head-url-template` and that the address returns a picture of the head. Heads without a skin show the plain head picture. |
 | Items are missing from a converted menu | Make sure `bedrock.include-unnamed-items` is `true`. An existing `config.yml` is not overwritten on update, so set it by hand or delete the file to regenerate it, then run `/crossui reload`. |
 | Button text shows a raw key such as `block.minecraft.stone` | Update to 1.1.0 or newer, which turns translation keys into readable names. |
 | A menu appears empty for Bedrock | The menu has no usable buttons. Leave `bedrock.fallback-to-chest-when-empty` on so it is shown normally. |

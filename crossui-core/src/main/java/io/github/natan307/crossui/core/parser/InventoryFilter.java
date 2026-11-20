@@ -17,6 +17,8 @@
  */
 package io.github.natan307.crossui.core.parser;
 
+import io.github.natan307.crossui.core.icon.HeadTexture;
+
 import com.github.retrooper.packetevents.protocol.component.ComponentTypes;
 import com.github.retrooper.packetevents.protocol.component.builtin.item.ItemLore;
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
@@ -104,7 +106,12 @@ public final class InventoryFilter {
                 }
             }
 
-            out.add(new ParsedButton(slot, name, subtext, List.copyOf(lore), material, left, right));
+            String headValue = null;
+            if ("player_head".equals(material)) {
+                headValue = HeadTexture.valueOf(item.getComponent(ComponentTypes.PROFILE).orElse(null));
+            }
+
+            out.add(new ParsedButton(slot, name, subtext, List.copyOf(lore), material, left, right, headValue));
         }
         return out;
     }

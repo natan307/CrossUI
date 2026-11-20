@@ -29,6 +29,7 @@ import java.util.List;
  * @param materialKey item material key such as {@code diamond_sword}
  * @param leftAction  lore line describing the left-click action, or {@code null}
  * @param rightAction lore line describing the right-click action, or {@code null}
+ * @param headValue   skin texture hash (or owner UUID) of a player head, or {@code null}
  */
 public record ParsedButton(
         int slot,
@@ -37,7 +38,8 @@ public record ParsedButton(
         List<String> lore,
         String materialKey,
         String leftAction,
-        String rightAction
+        String rightAction,
+        String headValue
 ) {
 
     /** True when the lore advertises two different actions (left and right click). */

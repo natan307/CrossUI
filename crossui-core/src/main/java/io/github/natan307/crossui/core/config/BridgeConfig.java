@@ -21,8 +21,10 @@ import io.github.natan307.crossui.core.CrossUIPlugin;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -40,6 +42,12 @@ public final class BridgeConfig {
     private volatile boolean keepColors;
     private volatile boolean nativeDialogs;
     private volatile boolean fallbackWhenEmpty;
+    private volatile boolean icons;
+    private volatile String iconUrlTemplate;
+    private volatile Map<String, String> iconOverrides;
+    private volatile java.util.List<String> iconExclude;
+    private volatile String iconPackUrl;
+    private volatile String headUrlTemplate;
     private volatile int loreMaxLength;
     private volatile int refreshDelayTicks;
     private volatile String formContent;
@@ -78,6 +86,29 @@ public final class BridgeConfig {
         this.rightKeywords = lower(b.getStringList("dual-click.right-keywords"));
         this.refreshDelayTicks = Math.max(1, b.getInt("refresh-delay-ticks", 4));
         this.fallbackWhenEmpty = b.getBoolean("fallback-to-chest-when-empty", true);
+
+        this.icons = b.getBoolean("icons", true);
+        this.iconUrlTemplate = b.getString("icon-url-template", "");
+        this.headUrlTemplate = b.getString("head-url-template", "https://mc-heads.net/head/%value%");
+        this.iconPackUrl = b.getString("icon-pack-url", "https://raw.githubusercontent.com/natan307/CrossUI/main/icons/");
+        java.util.List<String> excl = new java.util.ArrayList<>();
+        for (String e : b.getStringList("icon-exclude")) {
+            if (e != null && !e.isBlank()) {
+                excl.add(e.trim().toLowerCase(java.util.Locale.ROOT));
+            }
+        }
+        this.iconExclude = java.util.List.copyOf(excl);
+        Map<String, String> overrides = new HashMap<>();
+        ConfigurationSection custom = b.getConfigurationSection("icon-overrides");
+        if (custom != null) {
+            for (String key : custom.getKeys(false)) {
+                String value = custom.getString(key, "");
+                if (!value.isBlank()) {
+                    overrides.put(key.toLowerCase(Locale.ROOT), value.trim());
+                }
+            }
+        }
+        this.iconOverrides = Map.copyOf(overrides);
 
         this.nativeDialogs = c.getBoolean("java.native-dialogs", true);
     }
@@ -148,6 +179,32 @@ public final class BridgeConfig {
 
     public boolean nativeDialogs() {
         return nativeDialogs;
+    }
+
+    public String headUrlTemplate() {
+        return headUrlTemplate;
+    }
+
+    public String iconPackUrl() {
+        return iconPackUrl;
+    }
+
+    public java.util.List<String> iconExclude() {
+        return iconExclude;
+    }
+
+    public boolean icons() {
+        return icons;
+    }
+
+    /** Image URL template with a {@code %material%} placeholder, or an empty string. */
+    public String iconUrlTemplate() {
+        return iconUrlTemplate;
+    }
+
+    /** Item id to image value, lowercase keys. A value is a URL or a texture path. */
+    public Map<String, String> iconOverrides() {
+        return iconOverrides;
     }
 
     public boolean fallbackWhenEmpty() {

@@ -4,10 +4,10 @@
 
 ```kotlin
 repositories { maven("https://jitpack.io") }
-dependencies { compileOnly("com.github.natan307:CrossUI:1.1.0") }
+dependencies { compileOnly("com.github.natan307:CrossUI:2.0.0") }
 ```
 
-Modrinth Maven alternative: `maven("https://api.modrinth.com/maven")` and `compileOnly("maven.modrinth:crossui:1.1.0")`.
+Modrinth Maven alternative: `maven("https://api.modrinth.com/maven")` and `compileOnly("maven.modrinth:crossui:2.0.0")`.
 
 Declare `depend: [CrossUI]` (hard) or `softdepend: [CrossUI]` (optional) in your `plugin.yml`.
 
@@ -124,4 +124,4 @@ if (Bukkit.getPluginManager().isPluginEnabled("CrossUI")) {
 
 - **Patch** (1.0.1): bug fixes in `crossui-core`, PacketEvents updates. No recompile needed.
 - **Minor** (1.1.0): new builder methods. Existing methods are never removed or changed.
-- **Major** (2.0.0): only for unavoidable breaking changes.
+- **Major**: only for unavoidable breaking changes. The plugin and the API share one version number, so a plugin-only release (such as 2.0.0, which adds item pictures) can raise it without changing the API.
