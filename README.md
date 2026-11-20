@@ -92,7 +92,7 @@ The same code produces a Java native Dialog, a Bedrock CustomForm, a chat prompt
 A classic chest GUI from another plugin is turned into a native Bedrock Form automatically. Decorative slots are removed, every named item becomes a button, and the first lore line is shown as the button subtext.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/natan307/CrossUI/refs/heads/main/Chest%20To%20Form%20Example.png" alt="A chest GUI converted into a Bedrock Form by CrossUI" width="800">
+  <img src="https://raw.githubusercontent.com/natan307/CrossUI/refs/heads/main/ChestToForm%20Example.png" alt="A chest GUI converted into a Bedrock Form by CrossUI" width="800">
 </p>
 
 ---
