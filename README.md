@@ -243,7 +243,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.github.natan307:CrossUI:2.0.0")
+    compileOnly("com.github.natan307:CrossUI:2.0.1")
 }
 ```
 
@@ -255,7 +255,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("maven.modrinth:crossui:2.0.0")
+    compileOnly("maven.modrinth:crossui:2.0.1")
 }
 ```
 
