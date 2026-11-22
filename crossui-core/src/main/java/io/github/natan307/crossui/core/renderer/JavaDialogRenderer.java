@@ -88,7 +88,8 @@ public final class JavaDialogRenderer {
         for (UIButton button : menu.buttons()) {
             Component label = TextSanitizer.fromLegacy(button.title());
             if (button.subtext() != null && !button.subtext().isEmpty()) {
-                label = Component.text().append(label).append(Component.newline())
+                // A dialog button is one line: a newline would show as a missing-character box.
+                label = Component.text().append(label).append(Component.text("  -  ", NamedTextColor.DARK_GRAY))
                         .append(TextSanitizer.fromLegacy(button.subtext()).color(NamedTextColor.GRAY)).build();
             }
             String id = register(uuid, group, index++, payload ->
